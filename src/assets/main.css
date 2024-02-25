@@ -1,0 +1,41 @@
+#app {
+  width: 100vw;
+}
+
+#page-wrapper{
+  grid-template-columns: 1fr 3fr;
+}
+
+#map-container {
+  display: flex;
+  height: 100vh;
+  padding: 0;
+  flex: 1;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsl(160deg 100% 37% / 100%);
+  transition: 0.4s;
+}
+
+@media (hover: hover) {
+  a:hover {
+    background-color: hsl(160deg 100% 37% / 20%);
+  }
+}
+
+@media (width >= 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  #map-container {
+    display: flex;
+    height: 100vh;
+    padding: 0;
+    flex: 1;
+  }
+}
