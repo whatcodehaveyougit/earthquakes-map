@@ -1,8 +1,13 @@
+body {
+  font-family: avenir;
+}
+
 #app {
   width: 100vw;
 }
 
 #page-wrapper{
+  display: grid;
   grid-template-columns: 1fr 3fr;
 }
 

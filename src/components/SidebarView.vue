@@ -1,5 +1,8 @@
 <template>
   <section>
+    <h3>Recent Earthquakes</h3>
+
+    <input placeholder="Filter Earthquakes" />
     <div v-for="quake in storeEarthquakes" :key="quake.properties.time">
       <p>{{ quake.properties.title }}</p>
     </div>
