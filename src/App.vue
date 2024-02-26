@@ -1,18 +1,14 @@
 <template>
-   <div>
-      <Header />
-      <div id="page-wrapper">
-        <Sidebar />
-        <div id="map-container">
-          <div id="layout">
-            <Map/>
-          </div>
-        </div>
-      </div>
+  <div>
+    <Header />
+    <div id="page-wrapper">
+      <Sidebar />
+      <Map />
     </div>
+  </div>
 </template>
 
-<script >
+<script>
 import { Options, Vue } from 'vue-class-component';
 import axios from 'axios';
 import Header from './components/HeaderView.vue';
@@ -27,7 +23,10 @@ import 'mapbox-gl/dist/mapbox-gl.css';
     Sidebar,
   },
   mounted() {
-    axios.get('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson')
+    axios
+      .get(
+        'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson',
+      )
       .then((response) => {
         this.$store.commit('setEarthquakes', response.data.features);
       })
@@ -35,13 +34,11 @@ import 'mapbox-gl/dist/mapbox-gl.css';
         console.log(error);
       });
   },
-
 })
 export default class App extends Vue {}
 </script>
 
 <style>
-
 #layout {
   flex: 1;
   display: flex;
