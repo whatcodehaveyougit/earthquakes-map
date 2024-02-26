@@ -83,7 +83,7 @@ export function addEarthquakesToMap(map) {
     },
   });
 }
-let quakeID = null;
+const quakeID = null;
 
 export function changeMapMarkerOnEvent(map, event) {
   // Target the span elements used in the sidebar
@@ -100,7 +100,7 @@ export function changeMapMarkerOnEvent(map, event) {
   });
 
   // Check whether features exist
-  if (event.features.length === 0) return;
+  if (event.features.length === 0) return null;
   // Display the magnitude, location, and time in the sidebar
   magDisplay.textContent = quakeMagnitude;
   locDisplay.textContent = quakeLocation;
@@ -114,10 +114,7 @@ export function changeMapMarkerOnEvent(map, event) {
       id: quakeID,
     });
   }
-
-  quakeID = event.features[0].id;
-  console.log('setting feature state');
-
+  const quakeCode = event.features[0].properties.code;
   // When the mouse moves over the earthquakes-viz layer, update the
   // feature state for the feature under the mouse
   map.setFeatureState(
@@ -129,4 +126,20 @@ export function changeMapMarkerOnEvent(map, event) {
       hover: true,
     },
   );
+  return quakeCode;
+}
+
+export function highlightSelectedEarthquake(code) {
+  const selectedEarthquakeListItem = document.getElementById(code);
+  const earthquakesListItems = document.getElementsByClassName(
+    'earthquake-list-item',
+  );
+  [...earthquakesListItems].forEach((earthquakeListItem) => {
+    // NEED TO FIX THIS
+    // eslint-disable-next-line no-param-reassign
+    earthquakeListItem.classList = 'earthquake-list-item';
+    if (selectedEarthquakeListItem.id === earthquakeListItem.id) {
+      selectedEarthquakeListItem.classList.add('highlight');
+    }
+  });
 }

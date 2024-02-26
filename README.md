@@ -37,3 +37,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### Extensions
 
 - Add Tailwind
+
+- Refactor list component:
+  https://michaelnthiessen.com/force-re-render/
