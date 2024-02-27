@@ -83,9 +83,11 @@ export function addEarthquakesToMap(map) {
     },
   });
 }
+
 let quakeID = null;
 
-export function updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake) {
+export function updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake, index) {
+  // console.log(clickedOnEarthquake);
   // Target the span elements used in the sidebar
   const magDisplay = document.getElementById('mag');
   const locDisplay = document.getElementById('loc');
@@ -105,17 +107,15 @@ export function updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake) {
     magDisplay.textContent = quakeMagnitude;
     locDisplay.textContent = quakeLocation;
     dateDisplay.textContent = quakeDate;
-    console.log(clickedOnEarthquake);
-    console.log(quakeID);
     // If quakeID for the hovered feature is not null,
     // use removeFeatureState to reset to the default behavior
-    if (quakeID) {
+    if (quakeID !== null) {
       map.removeFeatureState({
         source: 'earthquakes',
         id: quakeID,
       });
     }
-    quakeID = clickedOnEarthquake.id;
+    quakeID = index;
 
     // const selectedEarthquake = clickedOnEarthquake.properties;
     // When the mouse moves over the earthquakes-viz layer, update the
@@ -145,4 +145,19 @@ export function highlightSelectedEarthquakeOnList(code) {
       selectedEarthquakeListItem.classList.add('highlight');
     }
   });
+}
+
+export function findIndexOfEarthquake(earthquakes, selectedEarthquake) {
+  // eslint-disable-next-line consistent-return
+  console.log(earthquakes);
+  console.log(selectedEarthquake);
+  let res;
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < earthquakes.features.length; i++) {
+    if (earthquakes.features[i].id === selectedEarthquake.id) {
+      res = i;
+      break;
+    }
+  }
+  return res;
 }
