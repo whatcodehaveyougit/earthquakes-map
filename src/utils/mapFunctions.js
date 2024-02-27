@@ -1,7 +1,7 @@
-export function renderMap(map) {
+export function renderMap(map, earthquakeData) {
   map.addSource('earthquakes', {
     type: 'geojson',
-    data: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson',
+    data: earthquakeData,
     generateId: true, // This ensures that all features have unique IDs
   });
 }

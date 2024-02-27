@@ -4,6 +4,7 @@ export default createStore({
   state: {
     earthquakes: [],
     selectedEarthquakeID: '',
+    filteredEarthquakes: [],
   },
   getters: {
     getEarthquakes(state) {

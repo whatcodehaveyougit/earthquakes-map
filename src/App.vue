@@ -28,7 +28,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
         'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson',
       )
       .then((response) => {
-        this.$store.commit('setEarthquakes', response.data.features);
+        this.$store.commit('setEarthquakes', response.data);
       })
       .catch((error) => {
         console.log(error);
