@@ -30,12 +30,8 @@
 </template>
 
 <script>
-import { ref, reactive } from 'vue';
-// <script lang="ts"> NEED TO TYPE THIS FILE
+import { ref } from 'vue';
 
-// export const store = reactive({
-//   filteredEarthquakes: [],
-// });
 const filterInput = ref('');
 
 export default {
@@ -52,7 +48,13 @@ export default {
       console.log(earthquake);
     },
     filterInputKeyUp() {
-      console.log('helo');
+      const res = this.$store.state.earthquakes.features.filter(
+        (item) =>
+          // eslint-disable-next-line implicit-arrow-linebreak
+          item.properties.title.includes(filterInput.value),
+        // eslint-disable-next-line function-paren-newline
+      );
+      this.filteredEarthquakes = res;
     },
   },
   watch: {
