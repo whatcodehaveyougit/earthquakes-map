@@ -13,6 +13,9 @@ export default createStore({
     getSelectedEarthquake(state) {
       return state.selectedEarthquakeID;
     },
+    getFilteredEarthquakes(state) {
+      return state.filteredEarthquakes;
+    },
   },
   mutations: {
     setEarthquakes(state, earthquakes) {
@@ -20,6 +23,9 @@ export default createStore({
     },
     setSelectedEarthquakeID(state, selectedEarthquake) {
       state.selectedEarthquakeID = selectedEarthquake;
+    },
+    setFilteredEarthquakes(state, earthquakes) {
+      state.filteredEarthquakes = earthquakes;
     },
   },
   actions: {},

@@ -24,11 +24,10 @@ import 'mapbox-gl/dist/mapbox-gl.css';
   },
   mounted() {
     axios
-      .get(
-        'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson',
-      )
+      .get('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson')
       .then((response) => {
         this.$store.commit('setEarthquakes', response.data);
+        this.$store.commit('setFilteredEarthquakes', response.data);
       })
       .catch((error) => {
         console.log(error);

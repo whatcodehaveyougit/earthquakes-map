@@ -23,11 +23,11 @@ import {
 } from '../utils/mapFunctions';
 
 mapboxgl.accessToken = process.env.VUE_APP_MAP_KEY;
-
+let map;
 export default {
   name: 'MapView',
   mounted() {
-    const map = new mapboxgl.Map({
+    map = new mapboxgl.Map({
       container: this.$refs.mapContainer,
       style: 'mapbox://styles/mapbox/streets-v12', // Replace with your preferred map style
       center: [-71.224518, 42.213995],
@@ -50,6 +50,16 @@ export default {
   unmounted() {
     this.map.remove();
     this.map = null;
+  },
+  watch: {
+    '$store.state.filteredEarthquakes': function () {
+      if (this.map.getLayer('earthquakes-viz')) {
+        this.map.removeLayer('earthquakes-viz');
+        this.map.removeSource('earthquakes');
+        renderMap(this.map, this.$store.state.filteredEarthquakes);
+        addEarthquakesToMap(this.map);
+      }
+    },
   },
 };
 </script>

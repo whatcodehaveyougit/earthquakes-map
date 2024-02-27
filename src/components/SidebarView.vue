@@ -13,10 +13,10 @@
       </label>
     </form>
     <br /><br />
-    <div class="earthquakes-list">
+    <div class="earthquake-list">
       <button
         class="earthquake-list-item"
-        v-for="earthquake in filteredEarthquakes"
+        v-for="earthquake in getFilteredEarthquakes.features"
         :key="earthquake.properties.time"
         :id="earthquake.properties.code"
         @click="earthquakeClicked(earthquake)"
@@ -24,8 +24,6 @@
         {{ earthquake.properties.title }}
       </button>
     </div>
-    <!-- {{ filter }} -->
-    <!-- <b>{{ selectedEarthquake }}</b> -->
   </section>
 </template>
 
@@ -38,9 +36,7 @@ export default {
   name: 'SidebarView',
   data() {
     return {
-      filteredEarthquakes: [],
       filterInput,
-      // store,
     };
   },
   methods: {
@@ -51,15 +47,14 @@ export default {
       const res = this.$store.state.earthquakes.features.filter(
         (item) =>
           // eslint-disable-next-line implicit-arrow-linebreak
-          item.properties.title.includes(filterInput.value),
+          item.properties.title.toLowerCase().includes(filterInput.value.toLowerCase()),
         // eslint-disable-next-line function-paren-newline
       );
-      this.filteredEarthquakes = res;
-    },
-  },
-  watch: {
-    '$store.state.earthquakes': function () {
-      this.filteredEarthquakes = this.$store.state.earthquakes.features;
+      const filteredEarthquakesNew = {
+        ...this.$store.state.earthquakes,
+        features: res,
+      };
+      this.$store.commit('setFilteredEarthquakes', filteredEarthquakesNew);
     },
   },
   computed: {
@@ -69,8 +64,8 @@ export default {
     selectedEarthquake() {
       return this.$store.getters.getSelectedEarthquake;
     },
-    getCustomClass(e) {
-      return e.properties.ids;
+    getFilteredEarthquakes() {
+      return this.$store.getters.getFilteredEarthquakes;
     },
   },
 };
@@ -80,8 +75,14 @@ export default {
 section {
   text-align: center;
 }
-.earthquakes-list {
+.earthquake-list {
   padding: 1rem 0;
+  margin: 1rem 0;
+  width: 100%;
+}
+.earthquake-list-item {
+  width: 100%;
+  display: block;
 }
 .highlight {
   background-color: grey;
