@@ -18,8 +18,8 @@ import mapboxgl from 'mapbox-gl';
 import {
   renderMap,
   addEarthquakesToMap,
-  changeMapMarkerOnEvent,
-  highlightSelectedEarthquake,
+  updateMapMarkerToSelectedEarthquake,
+  highlightSelectedEarthquakeOnList,
 } from '../utils/mapFunctions';
 
 mapboxgl.accessToken = process.env.VUE_APP_MAP_KEY;
@@ -33,16 +33,17 @@ export default {
       center: [-71.224518, 42.213995],
       zoom: 4,
     });
+
     map.on('load', () => {
       renderMap(map, this.$store.getters.getEarthquakes);
       addEarthquakesToMap(map);
     });
 
-    map.on('mousemove', 'earthquakes-viz', (event) => {
+    map.on('click', 'earthquakes-viz', (event) => {
       map.getCanvas().style.cursor = 'pointer';
-      const code = changeMapMarkerOnEvent(map, event);
-      this.$store.commit('setSelectedEarthquakeID', code);
-      highlightSelectedEarthquake(code);
+      const selectedEarthquake = updateMapMarkerToSelectedEarthquake(map, event);
+      this.$store.commit('setSelectedEarthquake', selectedEarthquake);
+      highlightSelectedEarthquakeOnList(selectedEarthquake.code);
     });
 
     this.map = map;
@@ -54,6 +55,8 @@ export default {
   watch: {
     '$store.state.filteredEarthquakes': function () {
       if (this.map.getLayer('earthquakes-viz')) {
+        console.log(this.map);
+        // this.map.center: [33.805245183926935, -118.16196929744874];
         this.map.removeLayer('earthquakes-viz');
         this.map.removeSource('earthquakes');
         renderMap(this.map, this.$store.state.filteredEarthquakes);

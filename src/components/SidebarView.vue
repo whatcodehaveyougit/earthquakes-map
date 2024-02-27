@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="sidebar-view">
     <h3>Recent Earthquakes</h3>
     <form>
       <label for="filterInput"
@@ -41,7 +41,9 @@ export default {
   },
   methods: {
     earthquakeClicked(earthquake) {
+      console.log('quake hyere click');
       console.log(earthquake);
+      this.$store.commit('setSelectedEarthquake', earthquake);
     },
     filterInputKeyUp() {
       const res = this.$store.state.earthquakes.features.filter(
@@ -76,16 +78,21 @@ section {
   text-align: center;
 }
 .earthquake-list {
-  padding: 1rem 0;
-  margin: 1rem 0;
   width: 100%;
 }
 .earthquake-list-item {
   width: 100%;
   display: block;
+  padding: 1rem 0;
+  margin: 1rem 0;
+}
+.earthquake-list-item:hover {
+  cursor: pointer;
 }
 .highlight {
   background-color: grey;
   text-decoration: underline;
+  color: white;
+  font-weight: 700;
 }
 </style>

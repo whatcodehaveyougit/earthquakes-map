@@ -85,7 +85,7 @@ export function addEarthquakesToMap(map) {
 }
 const quakeID = null;
 
-export function changeMapMarkerOnEvent(map, event) {
+export function updateMapMarkerToSelectedEarthquake(map, event) {
   // Target the span elements used in the sidebar
   const magDisplay = document.getElementById('mag');
   const locDisplay = document.getElementById('loc');
@@ -114,7 +114,7 @@ export function changeMapMarkerOnEvent(map, event) {
       id: quakeID,
     });
   }
-  const quakeCode = event.features[0].properties.code;
+  const selectedEarthquake = event.features[0].properties;
   // When the mouse moves over the earthquakes-viz layer, update the
   // feature state for the feature under the mouse
   map.setFeatureState(
@@ -126,10 +126,10 @@ export function changeMapMarkerOnEvent(map, event) {
       hover: true,
     },
   );
-  return quakeCode;
+  return selectedEarthquake;
 }
 
-export function highlightSelectedEarthquake(code) {
+export function highlightSelectedEarthquakeOnList(code) {
   const selectedEarthquakeListItem = document.getElementById(code);
   const earthquakesListItems = document.getElementsByClassName(
     'earthquake-list-item',

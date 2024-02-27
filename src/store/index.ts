@@ -3,7 +3,7 @@ import { createStore } from 'vuex';
 export default createStore({
   state: {
     earthquakes: [],
-    selectedEarthquakeID: '',
+    selectedEarthquake: '',
     filteredEarthquakes: [],
   },
   getters: {
@@ -11,7 +11,7 @@ export default createStore({
       return state.earthquakes;
     },
     getSelectedEarthquake(state) {
-      return state.selectedEarthquakeID;
+      return state.selectedEarthquake;
     },
     getFilteredEarthquakes(state) {
       return state.filteredEarthquakes;
@@ -21,8 +21,8 @@ export default createStore({
     setEarthquakes(state, earthquakes) {
       state.earthquakes = earthquakes;
     },
-    setSelectedEarthquakeID(state, selectedEarthquake) {
-      state.selectedEarthquakeID = selectedEarthquake;
+    setSelectedEarthquake(state, selectedEarthquake) {
+      state.selectedEarthquake = selectedEarthquake;
     },
     setFilteredEarthquakes(state, earthquakes) {
       state.filteredEarthquakes = earthquakes;
