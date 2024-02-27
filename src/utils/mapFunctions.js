@@ -85,22 +85,22 @@ export function addEarthquakesToMap(map) {
 }
 const quakeID = null;
 
-export function updateMapMarkerToSelectedEarthquake(map, event) {
+export function updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake) {
   // Target the span elements used in the sidebar
   const magDisplay = document.getElementById('mag');
   const locDisplay = document.getElementById('loc');
   const dateDisplay = document.getElementById('date');
 
   // Set constants equal to the current feature's magnitude, location, and time
-  const quakeMagnitude = event.features[0].properties.mag;
-  const quakeLocation = event.features[0].properties.place;
-  const quakeDate = new Date(event.features[0].properties.time);
+  const quakeMagnitude = clickedOnEarthquake.properties.mag;
+  const quakeLocation = clickedOnEarthquake.properties.place;
+  const quakeDate = new Date(clickedOnEarthquake.properties.time);
   map.flyTo({
-    center: event.features[0].geometry.coordinates,
+    center: clickedOnEarthquake.geometry.coordinates,
   });
 
   // Check whether features exist
-  if (event.features.length === 0) return null;
+  if (!clickedOnEarthquake.properties.mag) return null;
   // Display the magnitude, location, and time in the sidebar
   magDisplay.textContent = quakeMagnitude;
   locDisplay.textContent = quakeLocation;
@@ -114,7 +114,7 @@ export function updateMapMarkerToSelectedEarthquake(map, event) {
       id: quakeID,
     });
   }
-  const selectedEarthquake = event.features[0].properties;
+  const selectedEarthquake = clickedOnEarthquake.properties;
   // When the mouse moves over the earthquakes-viz layer, update the
   // feature state for the feature under the mouse
   map.setFeatureState(

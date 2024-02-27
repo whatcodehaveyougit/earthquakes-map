@@ -29,6 +29,10 @@
 
 <script>
 import { ref } from 'vue';
+import {
+  updateMapMarkerToSelectedEarthquake,
+  highlightSelectedEarthquakeOnList,
+} from '../utils/mapFunctions';
 
 const filterInput = ref('');
 
@@ -41,9 +45,11 @@ export default {
   },
   methods: {
     earthquakeClicked(earthquake) {
-      console.log('quake hyere click');
-      console.log(earthquake);
       this.$store.commit('setSelectedEarthquake', earthquake);
+      const map = this.$store.getters.getMap;
+      updateMapMarkerToSelectedEarthquake(map, earthquake);
+      this.$store.commit('setSelectedEarthquake', earthquake);
+      highlightSelectedEarthquakeOnList(earthquake.properties.code);
     },
     filterInputKeyUp() {
       const res = this.$store.state.earthquakes.features.filter(

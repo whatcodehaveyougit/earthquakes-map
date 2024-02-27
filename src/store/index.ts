@@ -5,6 +5,7 @@ export default createStore({
     earthquakes: [],
     selectedEarthquake: '',
     filteredEarthquakes: [],
+    map: {},
   },
   getters: {
     getEarthquakes(state) {
@@ -16,6 +17,9 @@ export default createStore({
     getFilteredEarthquakes(state) {
       return state.filteredEarthquakes;
     },
+    getMap(state) {
+      return state.map;
+    },
   },
   mutations: {
     setEarthquakes(state, earthquakes) {
@@ -26,6 +30,9 @@ export default createStore({
     },
     setFilteredEarthquakes(state, earthquakes) {
       state.filteredEarthquakes = earthquakes;
+    },
+    setMap(state, map) {
+      state.map = map;
     },
   },
   actions: {},

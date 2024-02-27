@@ -41,10 +41,12 @@ export default {
 
     map.on('click', 'earthquakes-viz', (event) => {
       map.getCanvas().style.cursor = 'pointer';
-      const selectedEarthquake = updateMapMarkerToSelectedEarthquake(map, event);
+      const clickedOnEarthquake = event.features[0];
+      const selectedEarthquake = updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake);
       this.$store.commit('setSelectedEarthquake', selectedEarthquake);
       highlightSelectedEarthquakeOnList(selectedEarthquake.code);
     });
+    this.$store.commit('setMap', map);
 
     this.map = map;
   },
@@ -55,8 +57,7 @@ export default {
   watch: {
     '$store.state.filteredEarthquakes': function () {
       if (this.map.getLayer('earthquakes-viz')) {
-        console.log(this.map);
-        // this.map.center: [33.805245183926935, -118.16196929744874];
+        // this.map.center: [33.805245183926935, -118.16196929744874] TODO ////
         this.map.removeLayer('earthquakes-viz');
         this.map.removeSource('earthquakes');
         renderMap(this.map, this.$store.state.filteredEarthquakes);
