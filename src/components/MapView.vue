@@ -41,10 +41,13 @@ export default {
 
     map.on('click', 'earthquakes-viz', (event) => {
       map.getCanvas().style.cursor = 'pointer';
+      console.log('helo world');
+      console.log(event.features[0].id);
+      console.log(event);
       const clickedOnEarthquake = event.features[0];
-      const selectedEarthquake = updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake);
-      this.$store.commit('setSelectedEarthquake', selectedEarthquake);
-      highlightSelectedEarthquakeOnList(selectedEarthquake.code);
+      updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake);
+      this.$store.commit('setSelectedEarthquake', clickedOnEarthquake);
+      highlightSelectedEarthquakeOnList(clickedOnEarthquake.properties.code);
     });
     this.$store.commit('setMap', map);
 

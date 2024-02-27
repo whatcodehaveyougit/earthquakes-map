@@ -83,7 +83,7 @@ export function addEarthquakesToMap(map) {
     },
   });
 }
-const quakeID = null;
+let quakeID = null;
 
 export function updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake) {
   // Target the span elements used in the sidebar
@@ -100,33 +100,36 @@ export function updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake) {
   });
 
   // Check whether features exist
-  if (!clickedOnEarthquake.properties.mag) return null;
-  // Display the magnitude, location, and time in the sidebar
-  magDisplay.textContent = quakeMagnitude;
-  locDisplay.textContent = quakeLocation;
-  dateDisplay.textContent = quakeDate;
+  if (clickedOnEarthquake.properties.mag) {
+    // Display the magnitude, location, and time in the sidebar
+    magDisplay.textContent = quakeMagnitude;
+    locDisplay.textContent = quakeLocation;
+    dateDisplay.textContent = quakeDate;
+    console.log(clickedOnEarthquake);
+    console.log(quakeID);
+    // If quakeID for the hovered feature is not null,
+    // use removeFeatureState to reset to the default behavior
+    if (quakeID) {
+      map.removeFeatureState({
+        source: 'earthquakes',
+        id: quakeID,
+      });
+    }
+    quakeID = clickedOnEarthquake.id;
 
-  // If quakeID for the hovered feature is not null,
-  // use removeFeatureState to reset to the default behavior
-  if (quakeID) {
-    map.removeFeatureState({
-      source: 'earthquakes',
-      id: quakeID,
-    });
+    // const selectedEarthquake = clickedOnEarthquake.properties;
+    // When the mouse moves over the earthquakes-viz layer, update the
+    // feature state for the feature under the mouse
+    map.setFeatureState(
+      {
+        source: 'earthquakes',
+        id: quakeID,
+      },
+      {
+        hover: true,
+      },
+    );
   }
-  const selectedEarthquake = clickedOnEarthquake.properties;
-  // When the mouse moves over the earthquakes-viz layer, update the
-  // feature state for the feature under the mouse
-  map.setFeatureState(
-    {
-      source: 'earthquakes',
-      id: quakeID,
-    },
-    {
-      hover: true,
-    },
-  );
-  return selectedEarthquake;
 }
 
 export function highlightSelectedEarthquakeOnList(code) {
