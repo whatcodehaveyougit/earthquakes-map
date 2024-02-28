@@ -101,9 +101,7 @@ export function updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake, in
     center: clickedOnEarthquake.geometry.coordinates,
   });
 
-  // Check whether features exist
   if (clickedOnEarthquake.properties.mag) {
-    // Display the magnitude, location, and time in the sidebar
     magDisplay.textContent = quakeMagnitude;
     locDisplay.textContent = quakeLocation;
     dateDisplay.textContent = quakeDate;
@@ -117,9 +115,6 @@ export function updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake, in
     }
     quakeID = index;
 
-    // const selectedEarthquake = clickedOnEarthquake.properties;
-    // When the mouse moves over the earthquakes-viz layer, update the
-    // feature state for the feature under the mouse
     map.setFeatureState(
       {
         source: 'earthquakes',

@@ -24,26 +24,22 @@ import 'mapbox-gl/dist/mapbox-gl.css';
   },
   mounted() {
     axios
-      .get('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojso')
+      .get('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson')
       .then((response) => {
-        console.log(response.data);
         this.$store.commit('setEarthquakes', response.data);
         this.$store.commit('setFilteredEarthquakes', response.data);
+        const longitude = response.data.features[0].geometry.coordinates[0];
+        const latitude = response.data.features[0].geometry.coordinates[1];
+        this.$store.state.map.flyTo({
+          center: [longitude, latitude],
+        });
       })
       .catch((error) => {
-        document.getElementsByClassName('earthquake-list').item(0).innerHTML =
-          'Error loading data from API';
+        document.getElementsByClassName('earthquake-list')[0].innerHTML = 'errpr';
+        // `Error loading data from API${error}`;
         console.log(error);
       });
   },
 })
 export default class App extends Vue {}
 </script>
-
-<style>
-#layout {
-  flex: 1;
-  display: flex;
-  position: relative;
-}
-</style>

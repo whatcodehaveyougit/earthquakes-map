@@ -1,11 +1,8 @@
 <template>
-  <h1>
-    Continuum Industries Assignement
-  </h1>
+  <h1>Continuum Industries Assignement</h1>
 </template>
 
-<script lang="ts">
-
+<script>
 export default {
   name: 'HeaderView',
 };

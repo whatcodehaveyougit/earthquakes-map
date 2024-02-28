@@ -48,7 +48,6 @@ export default {
     earthquakeClicked(earthquake) {
       const map = this.$store.getters.getMap;
       const index = findIndexOfEarthquake(this.$store.getters.getEarthquakes, earthquake);
-      console.log('res', index);
       updateMapMarkerToSelectedEarthquake(map, earthquake, index);
       highlightSelectedEarthquakeOnList(earthquake.properties.code);
       this.$store.commit('setSelectedEarthquake', earthquake);

@@ -23,14 +23,14 @@ import {
 } from '../utils/mapFunctions';
 
 mapboxgl.accessToken = process.env.VUE_APP_MAP_KEY;
-let map;
+
 export default {
   name: 'MapView',
   mounted() {
-    map = new mapboxgl.Map({
+    const map = new mapboxgl.Map({
       container: this.$refs.mapContainer,
-      style: 'mapbox://styles/mapbox/streets-v12', // Replace with your preferred map style
-      center: [-71.224518, 42.213995],
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [-116.1088, 44.3923],
       zoom: 4,
     });
 
@@ -56,12 +56,13 @@ export default {
   },
   watch: {
     '$store.state.filteredEarthquakes': function () {
-      if (this.map.getLayer('earthquakes-viz')) {
+      const storeMap = this.$store.state.map;
+      if (storeMap.getLayer('earthquakes-viz')) {
         // this.map.center: [33.805245183926935, -118.16196929744874] TODO ////
-        this.map.removeLayer('earthquakes-viz');
-        this.map.removeSource('earthquakes');
-        renderMap(this.map, this.$store.state.filteredEarthquakes);
-        addEarthquakesToMap(this.map);
+        storeMap.removeLayer('earthquakes-viz');
+        storeMap.removeSource('earthquakes');
+        renderMap(storeMap, this.$store.state.filteredEarthquakes);
+        addEarthquakesToMap(storeMap);
       }
     },
   },
@@ -85,5 +86,11 @@ export default {
   color: #222;
   background-color: #fff;
   border-radius: 3px;
+}
+
+#layout {
+  flex: 1;
+  display: flex;
+  position: relative;
 }
 </style>
