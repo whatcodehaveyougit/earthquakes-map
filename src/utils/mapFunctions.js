@@ -148,12 +148,8 @@ export function highlightSelectedEarthquakeOnList(code) {
 }
 
 export function findIndexOfEarthquake(earthquakes, selectedEarthquake) {
-  // eslint-disable-next-line consistent-return
-  console.log(earthquakes);
-  console.log(selectedEarthquake);
   let res;
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < earthquakes.features.length; i++) {
+  for (let i = 0; i < earthquakes.features.length; i += 1) {
     if (earthquakes.features[i].id === selectedEarthquake.id) {
       res = i;
       break;

@@ -40,8 +40,6 @@ export default {
     });
 
     map.on('click', 'earthquakes-viz', (event) => {
-      console.log('from map view', event);
-      console.log(event.features);
       map.getCanvas().style.cursor = 'pointer';
       const clickedOnEarthquake = event.features[0];
       updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake, clickedOnEarthquake.id);

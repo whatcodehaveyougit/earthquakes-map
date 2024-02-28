@@ -46,8 +46,6 @@ export default {
   },
   methods: {
     earthquakeClicked(earthquake) {
-      console.log('quake click');
-      console.log('from sidebar', earthquake);
       const map = this.$store.getters.getMap;
       const index = findIndexOfEarthquake(this.$store.getters.getEarthquakes, earthquake);
       console.log('res', index);
