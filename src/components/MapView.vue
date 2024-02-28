@@ -18,8 +18,9 @@ import mapboxgl from 'mapbox-gl';
 import {
   renderMap,
   addEarthquakesToMap,
-  updateMapMarkerToSelectedEarthquake,
+  highlightSelectedEarthquakeOnMap,
   highlightSelectedEarthquakeOnList,
+  centerMapToSelectedEarthquake,
 } from '../utils/mapFunctions';
 
 mapboxgl.accessToken = process.env.VUE_APP_MAP_KEY;
@@ -40,11 +41,22 @@ export default {
     });
 
     map.on('click', 'earthquakes-viz', (event) => {
-      map.getCanvas().style.cursor = 'pointer';
-      const clickedOnEarthquake = event.features[0];
-      updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake, clickedOnEarthquake.id);
-      this.$store.commit('setSelectedEarthquake', clickedOnEarthquake);
-      highlightSelectedEarthquakeOnList(clickedOnEarthquake.properties.code);
+      if (event.features.length > 0) {
+        map.getCanvas().style.cursor = 'pointer';
+        const clickedOnEarthquake = event.features[0];
+        // this.$store.commit('setSelectedEarthquake', clickedOnEarthquake);
+        centerMapToSelectedEarthquake(map, clickedOnEarthquake);
+        highlightSelectedEarthquakeOnList(clickedOnEarthquake.properties.code);
+      }
+    });
+    map.on('mouseover', 'earthquakes-viz', (event) => {
+      if (event.features.length > 0) {
+        map.getCanvas().style.cursor = 'pointer';
+        const clickedOnEarthquake = event.features[0];
+        // this.$store.commit('setSelectedEarthquake', clickedOnEarthquake);
+        highlightSelectedEarthquakeOnMap(map, clickedOnEarthquake, clickedOnEarthquake.id);
+        highlightSelectedEarthquakeOnList(clickedOnEarthquake.properties.code);
+      }
     });
     this.$store.commit('setMap', map);
 
@@ -58,7 +70,6 @@ export default {
     '$store.state.filteredEarthquakes': function () {
       const storeMap = this.$store.state.map;
       if (storeMap.getLayer('earthquakes-viz')) {
-        // this.map.center: [33.805245183926935, -118.16196929744874] TODO ////
         storeMap.removeLayer('earthquakes-viz');
         storeMap.removeSource('earthquakes');
         renderMap(storeMap, this.$store.state.filteredEarthquakes);

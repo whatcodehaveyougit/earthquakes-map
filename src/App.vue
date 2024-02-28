@@ -28,11 +28,13 @@ import 'mapbox-gl/dist/mapbox-gl.css';
       .then((response) => {
         this.$store.commit('setEarthquakes', response.data);
         this.$store.commit('setFilteredEarthquakes', response.data);
-        const longitude = response.data.features[0].geometry.coordinates[0];
-        const latitude = response.data.features[0].geometry.coordinates[1];
-        this.$store.state.map.flyTo({
-          center: [longitude, latitude],
-        });
+        if (response.data.features.length > 0) {
+          const longitude = response.data.features[0].geometry.coordinates[0];
+          const latitude = response.data.features[0].geometry.coordinates[1];
+          this.$store.state.map.flyTo({
+            center: [longitude, latitude],
+          });
+        }
       })
       .catch((error) => {
         document.getElementsByClassName('earthquake-list')[0].innerHTML = 'errpr';

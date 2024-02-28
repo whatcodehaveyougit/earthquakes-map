@@ -86,20 +86,25 @@ export function addEarthquakesToMap(map) {
 
 let quakeID = null;
 
-export function updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake, index) {
+export function centerMapToSelectedEarthquake(map, clickedOnEarthquake) {
+  map.flyTo({
+    center: clickedOnEarthquake.geometry.coordinates,
+  });
+}
+
+export function highlightSelectedEarthquakeOnMap(map, clickedOnEarthquake, index) {
   // console.log(clickedOnEarthquake);
   // Target the span elements used in the sidebar
   const magDisplay = document.getElementById('mag');
   const locDisplay = document.getElementById('loc');
   const dateDisplay = document.getElementById('date');
 
+  console.log(quakeID);
+  console.log(index);
   // Set constants equal to the current feature's magnitude, location, and time
   const quakeMagnitude = clickedOnEarthquake.properties.mag;
   const quakeLocation = clickedOnEarthquake.properties.place;
   const quakeDate = new Date(clickedOnEarthquake.properties.time);
-  map.flyTo({
-    center: clickedOnEarthquake.geometry.coordinates,
-  });
 
   if (clickedOnEarthquake.properties.mag) {
     magDisplay.textContent = quakeMagnitude;
@@ -108,22 +113,28 @@ export function updateMapMarkerToSelectedEarthquake(map, clickedOnEarthquake, in
     // If quakeID for the hovered feature is not null,
     // use removeFeatureState to reset to the default behavior
     if (quakeID !== null) {
+      console.log('remove here');
       map.removeFeatureState({
         source: 'earthquakes',
         id: quakeID,
       });
     }
+    if (quakeID === index) return;
     quakeID = index;
-
-    map.setFeatureState(
-      {
-        source: 'earthquakes',
-        id: quakeID,
-      },
-      {
-        hover: true,
-      },
-    );
+    try {
+      console.log('setting it here');
+      map.setFeatureState(
+        {
+          source: 'earthquakes',
+          id: quakeID,
+        },
+        {
+          hover: true,
+        },
+      );
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 

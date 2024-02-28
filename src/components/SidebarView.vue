@@ -1,3 +1,4 @@
+<!-- eslint-disable vuejs-accessibility/mouse-events-have-key-events -->
 <template>
   <section class="sidebar-view">
     <h3>Recent Earthquakes</h3>
@@ -19,7 +20,8 @@
         v-for="earthquake in getFilteredEarthquakes.features"
         :key="earthquake.properties.time"
         :id="earthquake.properties.code"
-        @click="earthquakeClicked(earthquake)"
+        @mouseover="onEarthquakeListItemHover(earthquake)"
+        @click="onEarthquakeListItemClick(earthquake)"
       >
         {{ earthquake.properties.title }}
       </button>
@@ -30,9 +32,10 @@
 <script>
 import { ref } from 'vue';
 import {
-  updateMapMarkerToSelectedEarthquake,
+  highlightSelectedEarthquakeOnMap,
   highlightSelectedEarthquakeOnList,
   findIndexOfEarthquake,
+  centerMapToSelectedEarthquake,
 } from '../utils/mapFunctions';
 
 const filterInput = ref('');
@@ -45,34 +48,42 @@ export default {
     };
   },
   methods: {
-    earthquakeClicked(earthquake) {
+    onEarthquakeListItemHover(earthquake) {
       const map = this.$store.getters.getMap;
-      const index = findIndexOfEarthquake(this.$store.getters.getEarthquakes, earthquake);
-      updateMapMarkerToSelectedEarthquake(map, earthquake, index);
-      highlightSelectedEarthquakeOnList(earthquake.properties.code);
-      this.$store.commit('setSelectedEarthquake', earthquake);
+      if (this.$store.getters.getEarthquakes.features.length > 0) {
+        const index = findIndexOfEarthquake(this.$store.getters.getFilteredEarthquakes, earthquake);
+        highlightSelectedEarthquakeOnMap(map, earthquake, index);
+        highlightSelectedEarthquakeOnList(earthquake.properties.code);
+        // this.$store.commit('setSelectedEarthquake', earthquake);
+      }
+    },
+    onEarthquakeListItemClick(earthquake) {
+      const map = this.$store.getters.getMap;
+      centerMapToSelectedEarthquake(map, earthquake);
     },
     filterInputKeyUp() {
-      const res = this.$store.state.earthquakes.features.filter(
-        (item) =>
-          // eslint-disable-next-line implicit-arrow-linebreak
-          item.properties.title.toLowerCase().includes(filterInput.value.toLowerCase()),
-        // eslint-disable-next-line function-paren-newline
-      );
-      const filteredEarthquakesNew = {
-        ...this.$store.state.earthquakes,
-        features: res,
-      };
-      this.$store.commit('setFilteredEarthquakes', filteredEarthquakesNew);
+      if (this.$store.state.earthquakes.features.length > 0) {
+        const filteredEarthquakesArray = this.$store.state.earthquakes.features.filter(
+          (item) =>
+            // eslint-disable-next-line implicit-arrow-linebreak
+            item.properties.title.toLowerCase().includes(filterInput.value.toLowerCase()),
+          // eslint-disable-next-line function-paren-newline
+        );
+        const filteredEarthquakesNew = {
+          ...this.$store.state.earthquakes,
+          features: filteredEarthquakesArray,
+        };
+        this.$store.commit('setFilteredEarthquakes', filteredEarthquakesNew);
+      }
     },
   },
   computed: {
     earthquakes() {
       return this.$store.getters.getEarthquakes.features;
     },
-    selectedEarthquake() {
-      return this.$store.getters.getSelectedEarthquake;
-    },
+    // selectedEarthquake() {
+    //   return this.$store.getters.getSelectedEarthquake;
+    // },
     getFilteredEarthquakes() {
       return this.$store.getters.getFilteredEarthquakes;
     },
@@ -93,13 +104,12 @@ section {
   padding: 1rem 0;
   margin: 1rem 0;
 }
-.earthquake-list-item:hover {
-  cursor: pointer;
-}
+
 .highlight {
   background-color: grey;
   text-decoration: underline;
   color: white;
   font-weight: 700;
+  cursor: pointer;
 }
 </style>
