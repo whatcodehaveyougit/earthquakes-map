@@ -93,14 +93,11 @@ export function centerMapToSelectedEarthquake(map, clickedOnEarthquake) {
 }
 
 export function highlightSelectedEarthquakeOnMap(map, clickedOnEarthquake, index) {
-  // console.log(clickedOnEarthquake);
   // Target the span elements used in the sidebar
   const magDisplay = document.getElementById('mag');
   const locDisplay = document.getElementById('loc');
   const dateDisplay = document.getElementById('date');
 
-  console.log(quakeID);
-  console.log(index);
   // Set constants equal to the current feature's magnitude, location, and time
   const quakeMagnitude = clickedOnEarthquake.properties.mag;
   const quakeLocation = clickedOnEarthquake.properties.place;
@@ -122,7 +119,6 @@ export function highlightSelectedEarthquakeOnMap(map, clickedOnEarthquake, index
     if (quakeID === index) return;
     quakeID = index;
     try {
-      console.log('setting it here');
       map.setFeatureState(
         {
           source: 'earthquakes',
@@ -144,7 +140,6 @@ export function highlightSelectedEarthquakeOnList(code) {
     'earthquake-list-item',
   );
   [...earthquakesListItems].forEach((earthquakeListItem) => {
-    // NEED TO FIX THIS
     // eslint-disable-next-line no-param-reassign
     earthquakeListItem.classList = 'earthquake-list-item';
     if (selectedEarthquakeListItem.id === earthquakeListItem.id) {
@@ -154,12 +149,12 @@ export function highlightSelectedEarthquakeOnList(code) {
 }
 
 export function findIndexOfEarthquake(earthquakes, selectedEarthquake) {
-  let res;
+  let indexOfSelectedEarthquake;
   for (let i = 0; i < earthquakes.features.length; i += 1) {
     if (earthquakes.features[i].id === selectedEarthquake.id) {
-      res = i;
+      indexOfSelectedEarthquake = i;
       break;
     }
   }
-  return res;
+  return indexOfSelectedEarthquake;
 }
