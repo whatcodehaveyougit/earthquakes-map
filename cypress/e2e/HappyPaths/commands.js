@@ -34,8 +34,6 @@ When('there should be no text in the element with the datatest-id {string}', (da
 });
 
 When('there should be text in the element with the datatest-id {string}', (datatestId) => {
-  console.log('==================================');
-  console.log(cy.get(`[data-testid=${datatestId}]`));
   cy.get(`[data-testid=${datatestId}]`).then(($el) => {
     const text = $el.text(); // Now you have the text "Backpack"
     cy.expect(text.length).to.be.gt(1);

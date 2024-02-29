@@ -110,7 +110,6 @@ export function highlightSelectedEarthquakeOnMap(map, clickedOnEarthquake, index
     // If quakeID for the hovered feature is not null,
     // use removeFeatureState to reset to the default behavior
     if (quakeID !== null) {
-      console.log('remove here');
       map.removeFeatureState({
         source: 'earthquakes',
         id: quakeID,
