@@ -1,10 +1,9 @@
 <!-- eslint-disable vuejs-accessibility/mouse-events-have-key-events -->
 <template>
   <section class="sidebar-view">
-    <h3>Recent Earthquakes</h3>
+    <h3>Earthquakes in Last 30 Days</h3>
     <form>
-      <label for="filterInput"
-        >Filter Earthquakes
+      <label for="filterInput">
         <input
           placeholder="Filter Earthquakes"
           type="text"
@@ -14,7 +13,7 @@
         />
       </label>
     </form>
-    <br /><br />
+    <br />
     <div class="earthquake-list" data-cy="earthquake-list">
       <button
         class="earthquake-list-item"
@@ -100,10 +99,17 @@ section {
   width: 100%;
 }
 .earthquake-list-item {
-  width: 100%;
+  width: 95%;
   display: block;
   padding: 1rem 0;
-  margin: 1rem 0;
+  margin: 1rem 0.2rem;
+  font-size: 1.1rem;
+}
+form input {
+  padding: 1rem;
+  border: 1px solid grey;
+  border-radius: 5px;
+  font-size: 1.2rem;
 }
 
 .highlight {
