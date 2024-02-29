@@ -14,16 +14,25 @@ VUE_APP_MAP_KEY={paste_in_key_here}
 
 ### Running the site using Docker
 
-- `docker build -t {your_name/your_app_name} .`
-- `docker run -it -p 8080:8080 --rm --name continuum-app {your_name/your_app_name}`
+```
+docker build -t {your_name/your_app_name} .
+```
+
+```
+docker run -it -p 8080:8080 --rm --name continuum-app {your_name/your_app_name}
+```
 
 You will be able to access the site on: http://localhost:8080/
 
 ### E2E Tests
 
-This application has cypress e2e tests. After you have the site running localhost:8080, run the command below to see them running:
+This application has cypress e2e tests and using the Cucumber syntax.
 
-- `npx cypress open`
+After you have the site running on localhost:8080, run the command below to see the tests run
+
+```
+npx cypress open
+```
 
 ## Project setup not using docker
 
