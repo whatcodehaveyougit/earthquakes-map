@@ -10,11 +10,12 @@
           type="text"
           v-model="filterInput"
           @keyup="filterInputKeyUp(e)"
+          data-testid="filter-input"
         />
       </label>
     </form>
     <br /><br />
-    <div class="earthquake-list">
+    <div class="earthquake-list" data-cy="earthquake-list">
       <button
         class="earthquake-list-item"
         v-for="earthquake in getFilteredEarthquakes.features"

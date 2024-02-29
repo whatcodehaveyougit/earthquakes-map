@@ -5,7 +5,7 @@
         <div ref="mapContainer" class="map-container"></div>
       </div>
       <div class="quake-info">
-        <div><strong>Magnitude:</strong> <span id="mag"></span></div>
+        <div><strong>Magnitude:</strong> <span id="mag" data-testid="magnitude"></span></div>
         <div><strong>Location:</strong> <span id="loc"></span></div>
         <div><strong>Date:</strong> <span id="date"></span></div>
       </div>
