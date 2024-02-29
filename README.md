@@ -6,8 +6,8 @@ The site can be found here: https://main--earthquake-map-project.netlify.app/
 
 ### Create an ENV file
 
-Create an `.env` file in root directory
-Creat an account on mapbox to get an API Key: https://account.mapbox.com/auth/signup/
+Create an `.env` file in root directory.
+Create an account on mapbox to get an API Key: https://account.mapbox.com/auth/signup/
 Paste the key into the .env file following the format below.
 
 VUE_APP_MAP_KEY={paste_in_key_here}
