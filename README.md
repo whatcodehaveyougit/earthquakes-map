@@ -6,22 +6,22 @@ The site can be found here: https://main--earthquake-map-project.netlify.app/
 
 ### Create an ENV file
 
-You will need to create a `.env` file in root directory and an account on mapbox to get an API Key.
-This can be done here: https://account.mapbox.com/auth/signup/
-Then paste the key into the .env file following the format below.
+Create an `.env` file in root directory
+Creat an account on mapbox to get an API Key: https://account.mapbox.com/auth/signup/
+Paste the key into the .env file following the format below.
 
 VUE_APP_MAP_KEY={paste_in_key_here}
 
 ### Running the site using Docker
 
 - `docker build -t {your_name/your_app_name} .`
-- `docker run -it -p 8080:8080 --rm --name contiuum-app {your_name/your_app_name}`
+- `docker run -it -p 8080:8080 --rm --name continuum-app {your_name/your_app_name}`
 
 You will be able to access the site on: http://localhost:8080/
 
 ### E2E Tests
 
-This application has cypress e2e tests. After you have the site running localhost:8080 you just need to simply run the command:
+This application has cypress e2e tests. After you have the site running localhost:8080, run the command below to see them running:
 
 - `npx cypress open`
 
