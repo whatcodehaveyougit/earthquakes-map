@@ -37,8 +37,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
         }
       })
       .catch((error) => {
-        document.getElementsByClassName('earthquake-list')[0].innerHTML = 'errpr';
-        // `Error loading data from API${error}`;
+        document.getElementsByClassName('earthquake-list')[0].innerHTML = `Error loading data from API${error}`;
         console.log(error);
       });
   },
