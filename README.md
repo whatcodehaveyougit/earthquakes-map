@@ -4,19 +4,18 @@ This project was created use the Vue Cli
 
 The site can be found here: https://main--earthquake-map-project.netlify.app/
 
-### Running Site locally
+### Create an ENV file
 
-This can be done using docker.
 You will need to create a `.env` file in root directory and an account on mapbox to get an API Key.
 This can be done here: https://account.mapbox.com/auth/signup/
 Then paste the key into the .env file following the format below.
 
 VUE_APP_MAP_KEY={paste_in_key_here}
 
-Then run the commands:
+### Running the site using Docker
 
 - `docker build -t {your_name/your_app_name} .`
-- `docker run -it -p 8080:8080 --rm --name {your_name/your_app_name}`
+- `docker run -it -p 8080:8080 --rm --name contiuum-app {your_name/your_app_name}`
 
 You will be able to access the site on: http://localhost:8080/
 
@@ -26,7 +25,7 @@ This application has cypress e2e tests. After you have the site running localhos
 
 - `npx cypress open`
 
-## Project setup
+## Project setup not using docker
 
 ```
 npm install

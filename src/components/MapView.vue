@@ -67,7 +67,7 @@ export default {
     this.map = null;
   },
   watch: {
-    '$store.state.filteredEarthquakes': function () {
+    '$store.state.filteredEarthquakes': function updateMapWithFilteredEarthquakes() {
       const storeMap = this.$store.state.map;
       if (storeMap.getLayer('earthquakes-viz')) {
         storeMap.removeLayer('earthquakes-viz');

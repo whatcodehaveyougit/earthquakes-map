@@ -1,5 +1,5 @@
 <template>
-  <h1>Continuum Industries Assignementdddd</h1>
+  <h1>Continuum Industries Assignement</h1>
 </template>
 
 <script>
