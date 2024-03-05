@@ -60,7 +60,7 @@ export default {
     });
     this.$store.commit('setMap', map);
 
-    this.map = map;
+    // this.map = map;
   },
   unmounted() {
     this.map.remove();

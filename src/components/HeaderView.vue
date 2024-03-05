@@ -1,5 +1,5 @@
 <template>
-  <h1>Continuum Industries Assignment</h1>
+  <h1>Earthquakes App</h1>
 </template>
 
 <script>
